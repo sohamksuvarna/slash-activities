@@ -175,4 +175,4 @@ client.on("ready", () => {
     })
 })
 
-client.login(process.env.TOKEN)
+client.login("NzY1NTUzNzA0NDQyMjY1NjIy.X4Wfcg.mK9R4t1_nH5g6Y4ZlvLrE9yVd6g")

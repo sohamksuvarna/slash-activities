@@ -103,6 +103,34 @@ slash.on("command", async (command) => {
                 })
 
         }
+        if (command.options.find(m => m.name === "type").value === "c") {
+            fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
+                    method: "POST",
+                    body: JSON.stringify({
+                        max_age: 86400,
+                        max_uses: 0,
+                        target_application_id: "832012586023256104",
+                        target_type: 2,
+                        temporary: false,
+                        validate: null
+                    }),
+                    headers: {
+                        "Authorization": `Bot ${client.token}`,
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(res => res.json())
+                .then(invite => {
+                    embed.setTitle("Activity added!")
+                    embed.setDescription(`Added **Chess** to [${channel.name}](https://discord.gg/${invite.code})\n> Click on the hyperlink to join.`)
+                    embed.setFooter(`Requested by ${command.author.username + "#" + command.author.discriminator}`)
+                    embed.setColor("#7289DA")
+                    command.callback({
+                        embeds: embed
+                    });
+                })
+
+        }
         if (command.options.find(m => m.name === "type").value === "fio") {
             fetch(`https://discord.com/api/v8/channels/${channel.id}/invites`, {
                     method: "POST",
@@ -164,6 +192,10 @@ client.on("ready", () => {
                             name: "Poker Night",
                             value: "pn"
                         },
+                        {
+                            name: "Chess",
+                            value: "c"
+                        },     
                         {
                             name: "Fishington.io",
                             value: "fio"
